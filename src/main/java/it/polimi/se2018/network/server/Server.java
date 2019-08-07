@@ -157,7 +157,7 @@ public class Server {
                 player.setDisconnected(true);
                 if(player.getBoard() == null)
                     onReceive(new PatternResponse(player.getName(), 0));
-                while(player.getState().getStage() == EnumState.YOUR_TURN) {
+                while(player.getState().getPlayerState() == EnumState.YOUR_TURN) {
                     onReceive(new PassRequest(player.getName()));
                 }
                 if(usernames.containsKey(username))

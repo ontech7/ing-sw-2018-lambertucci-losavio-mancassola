@@ -42,7 +42,7 @@ class ToolCardController {
         PlayerState newState = operations.peek().apply(this, playerMove);
 
         //If the state returned is not REPEAT, poll the Queue. Otherwise the player must repeat that operation of the Queue.
-        if(newState.getStage() != EnumState.REPEAT) {
+        if(newState.getPlayerState() != EnumState.REPEAT) {
             operations.poll();
         }
 

@@ -111,7 +111,7 @@ public class CLI implements ViewInterface {
         this.match = match;
         displayMatch(match);
         Player me = getMyself(match);
-        if(me != null && me.getState().getStage() == EnumState.YOUR_TURN){
+        if(me != null && me.getState().getPlayerState() == EnumState.YOUR_TURN){
             onYourTurnState();
         }
     }
@@ -217,7 +217,7 @@ public class CLI implements ViewInterface {
                 "Player:",
                 "" + player.getName(),
                 player.getName().equals(client.getUsername()) ? "  (YOU)" : "" + playerDisconnected,
-                player.getState().getStage().toString(),
+                player.getState().getPlayerState().toString(),
                 player.getPickedDie() == null ? "" : "Hand: " + player.getPickedDie().toString(),
                 "Tokens:",
                 " " + tokenString,
@@ -283,7 +283,7 @@ public class CLI implements ViewInterface {
      */
     private void onChangeState(PlayerState oldState, PlayerState newState){
         InputManager.closeInput();
-        switch(newState.getStage()){
+        switch(newState.getPlayerState()){
             case IDLE:
                 break;
             case PICK:

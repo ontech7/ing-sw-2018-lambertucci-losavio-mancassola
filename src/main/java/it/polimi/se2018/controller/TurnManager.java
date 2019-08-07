@@ -80,7 +80,7 @@ class TurnManager {
 
         boolean isPlayerEqual = match.getPlayerByName(username).equals(currentPlayer);
 
-        if(isPlayerEqual && currentPlayer.getState().getStage() != EnumState.YOUR_TURN) {
+        if(isPlayerEqual && currentPlayer.getState().getPlayerState() != EnumState.YOUR_TURN) {
             cancelOperation(username);
             currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
             return true;
@@ -136,7 +136,7 @@ class TurnManager {
      */
     private void handleToolcardMove(Player currentPlayer, PlayerMove move) {
         PlayerState newState = toolcard.handleMove(move);
-        if(newState.getStage() == EnumState.YOUR_TURN) {
+        if(newState.getPlayerState() == EnumState.YOUR_TURN) {
             toolcard = null;
             currentPlayer.deactivateToolcard();
         }
@@ -157,11 +157,11 @@ class TurnManager {
         if(isToolcardActive && currentPlayer.getPossibleActions().contains(PossibleAction.ACTIVATE_TOOLCARD)) {
             handleToolcardMove(currentPlayer, move);
         //Checks if the current player's state is not 'YOUR_TURN' and the current player has 'PICK_DIE' possible action
-        } else if(currentPlayer.getState().getStage() != EnumState.YOUR_TURN && currentPlayer.getPossibleActions().contains(PossibleAction.PICK_DIE)) {
+        } else if(currentPlayer.getState().getPlayerState() != EnumState.YOUR_TURN && currentPlayer.getPossibleActions().contains(PossibleAction.PICK_DIE)) {
             handleNormalMove(currentPlayer, move);
         }
 
-        return currentPlayer.getState().getStage() == EnumState.YOUR_TURN;
+        return currentPlayer.getState().getPlayerState() == EnumState.YOUR_TURN;
     }
 
     /**
@@ -173,7 +173,7 @@ class TurnManager {
         Player currentPlayer = match.getPlayerQueue().peek();
 
         boolean isPlayerEqual = match.getPlayerByName(username).equals(currentPlayer);
-        boolean isYourTurnState = currentPlayer.getState().getStage() == EnumState.YOUR_TURN;
+        boolean isYourTurnState = currentPlayer.getState().getPlayerState() == EnumState.YOUR_TURN;
 
         //Checks if the player's name coincides with the current player of the queue, if he is in 'YOUR_TURN' state and if it contains 'PICK_DIE' possible action
         if(isPlayerEqual && isYourTurnState && currentPlayer.getPossibleActions().contains(PossibleAction.PICK_DIE)) {
@@ -241,12 +241,12 @@ class TurnManager {
         Player currentPlayer = match.getPlayerQueue().peek();
 
         boolean isPlayerEqual = match.getPlayerByName(username).equals(currentPlayer);
-        boolean isIdle = currentPlayer.getState().getStage() == EnumState.IDLE;
+        boolean isIdle = currentPlayer.getState().getPlayerState() == EnumState.IDLE;
 
         //Checks if the player's name coincides with the current player of the queue and if it contains 'PASS_TURN' possible action
         if(isPlayerEqual && !isIdle && currentPlayer.getPossibleActions().contains(PossibleAction.PASS_TURN)) {
             //Check if the current player's state is not 'YOUR_TURN'
-            if(currentPlayer.getState().getStage() != EnumState.YOUR_TURN)
+            if(currentPlayer.getState().getPlayerState() != EnumState.YOUR_TURN)
                 cancelOperation(username);
             //Removes all possible actions (it will an empty enumset)
             currentPlayer.possibleActionsRemoveAll();

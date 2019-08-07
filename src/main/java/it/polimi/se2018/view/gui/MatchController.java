@@ -106,7 +106,7 @@ public class MatchController {
      */
     private void switchStates(Match match){
         PlayerState state = match.getPlayerByName(client.getUsername()).getState();
-        switch(state.getStage()){
+        switch(state.getPlayerState()){
             case IDLE:
                 disableAll();
                 break;
@@ -170,7 +170,7 @@ public class MatchController {
             switchStates(match);
 
 
-            if (match.getPlayerByName(client.getUsername()).getState().getStage() != EnumState.REPEAT) {
+            if (match.getPlayerByName(client.getUsername()).getState().getPlayerState() != EnumState.REPEAT) {
                 this.match = match;
             }
         }

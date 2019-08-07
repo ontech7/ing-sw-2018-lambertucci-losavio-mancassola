@@ -14,5 +14,5 @@ public class PlayerState implements Serializable {
         this.state = newState;
     }
 
-    public EnumState getStage() { return this.state; }
+    public EnumState getPlayerState() { return this.state; }
 }
