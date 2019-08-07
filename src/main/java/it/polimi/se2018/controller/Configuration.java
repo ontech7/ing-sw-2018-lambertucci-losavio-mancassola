@@ -18,6 +18,8 @@ public class Configuration {
     private int queueTimer;
     private int inGameTimer;
     private String patternPath;
+    private boolean RESTful;
+    private int RESTport;
 
     /**
      * Load configuration from file. If file is not present, set default configuration
@@ -42,12 +44,16 @@ public class Configuration {
             queueTimer = Integer.parseInt(prop.getProperty("queueTimer", "30000"));
             inGameTimer = Integer.parseInt(prop.getProperty("inGameTimer", "20"));
             patternPath = prop.getProperty("patternPath", "null");
+            RESTful = Boolean.parseBoolean(prop.getProperty("RESTful", "true"));
+            RESTport = Integer.parseInt(prop.getProperty("RESTport", "3000"));
         } catch (Exception e) {
             socketPort = 1111;
             rmiPort = 1099;
             queueTimer = 30000;
             inGameTimer = 20;
             patternPath = "null";
+            RESTful = true;
+            RESTport = 3000;
         }
     }
 
@@ -68,4 +74,12 @@ public class Configuration {
     }
 
     public String getPatternPath() { return patternPath; }
+
+    public int getRESTport() {
+        return RESTport;
+    }
+
+    public boolean isRESTful() {
+        return RESTful;
+    }
 }

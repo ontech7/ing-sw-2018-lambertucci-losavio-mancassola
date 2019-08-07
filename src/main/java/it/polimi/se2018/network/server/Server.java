@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.controller.Configuration;
+import it.polimi.se2018.controller.RestfulController;
 import it.polimi.se2018.model.EnumState;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.network.message.QueueRequest;
@@ -14,11 +15,17 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
 /**
  * This class is the main Server class.
  * It runs both RMI and Socket servers and it handles lobbies and clients' connection
  * @author mett29, MicheleLambertucci, ontech7
  */
+@SpringBootApplication
+@ComponentScan(basePackageClasses= RestfulController.class)
 public class Server {
     private static final int MAX_PLAYER_NUMBER = 4;
 
@@ -32,7 +39,7 @@ public class Server {
 
     private static Logger logger = Logger.getLogger("server");
 
-    private Server() {
+    public Server() {
         this.queue = new PlayerQueue(MAX_PLAYER_NUMBER, this);
 
         this.usernames = new HashMap<>();
@@ -46,6 +53,11 @@ public class Server {
         try {
             Server server = new Server();
             server.startServer(Configuration.getInstance().getSocketPort(), Configuration.getInstance().getRmiPort());
+            if(Configuration.getInstance().isRESTful()) {
+                SpringApplication app = new SpringApplication(Server.class);
+                app.setDefaultProperties(Collections.singletonMap("server.port", Configuration.getInstance().getRESTport()));
+                app.run(args);
+            }
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
         }
@@ -145,7 +157,7 @@ public class Server {
                 player.setDisconnected(true);
                 if(player.getBoard() == null)
                     onReceive(new PatternResponse(player.getName(), 0));
-                while(player.getState().get() == EnumState.YOUR_TURN) {
+                while(player.getState().getStage() == EnumState.YOUR_TURN) {
                     onReceive(new PassRequest(player.getName()));
                 }
                 if(usernames.containsKey(username))

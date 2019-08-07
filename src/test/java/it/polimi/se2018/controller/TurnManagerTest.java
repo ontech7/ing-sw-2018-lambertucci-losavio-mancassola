@@ -155,14 +155,14 @@ public class TurnManagerTest {
         assertTrue(turnManager.passTurn("Pino"));
 
         assertFalse(turnManager.passTurn("Pino"));
-        assertEquals(EnumState.IDLE, currentPlayer.getState().get());
+        assertEquals(EnumState.IDLE, currentPlayer.getState().getStage());
 
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
         assertTrue(turnManager.activateNormalMove("Pino"));
 
         assertTrue(turnManager.passTurn("Pino"));
-        assertEquals(EnumState.IDLE, currentPlayer.getState().get());
+        assertEquals(EnumState.IDLE, currentPlayer.getState().getStage());
     }
 
     @Test
@@ -253,13 +253,13 @@ public class TurnManagerTest {
 
         //Attivo la seconda toolcard -> Vado in stato PICK
         assertTrue(turnManager.activateToolcard("Pino", 1));
-        assertEquals(EnumState.PICK, currentPlayer.getState().get());
+        assertEquals(EnumState.PICK, currentPlayer.getState().getStage());
 
         //Seleziono un dado dalla Board -> Vado in stato PICK
         PlayerMove<DieCoord> pm2 = new PlayerMove<>(currentPlayer, new BoardCoord(currentPlayer.getBoard(), 0, 0));
 
         assertFalse(turnManager.handleMove(pm2));
-        assertEquals(EnumState.PICK, currentPlayer.getState().get());
+        assertEquals(EnumState.PICK, currentPlayer.getState().getStage());
 
         assertTrue(turnManager.cancelOperation("Pino"));
 

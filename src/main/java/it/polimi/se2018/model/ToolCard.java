@@ -18,7 +18,7 @@ public class ToolCard implements Card{
 
     /**
      * Get the color of the toolcard
-     * @return object to get
+     * @return object to getStage
      */
     public Color getColor() {
         return CardInfos.colors.get(id);
@@ -26,13 +26,13 @@ public class ToolCard implements Card{
 
     /**
      * Get the id of the toolcard
-     * @return object to get
+     * @return object to getStage
      */
     public int getId() { return this.id; }
 
     /**
      * Get the description of the toolcard
-     * @return object to get
+     * @return object to getStage
      */
     @Override
     public String getDescription() {
@@ -41,7 +41,7 @@ public class ToolCard implements Card{
 
     /**
      * Get the title of the toolcard
-     * @return object to get
+     * @return object to getStage
      */
     @Override
     public String getTitle() {
@@ -50,7 +50,7 @@ public class ToolCard implements Card{
 
     /**
      * Get the actual cost of the toolcard
-     * @return object to get
+     * @return object to getStage
      */
     public int getCost() {
         return cost;
