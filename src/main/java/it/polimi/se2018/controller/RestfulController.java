@@ -5,6 +5,7 @@ import it.polimi.se2018.controller.services.MatchesService;
 import it.polimi.se2018.model.*;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -30,6 +31,13 @@ public class RestfulController implements ErrorController {
     @Override
     public String getErrorPath() {
         return "/error";
+    }
+
+    /* Root redirect */
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView method() {
+        return new ModelAndView("redirect:rest/api");
     }
 
     /* REST API DOC */
