@@ -13,6 +13,7 @@ import java.util.function.BiFunction;
  */
 class TurnManager {
     private Match match;
+    private String matchUUID;
     private ToolCardController toolcard;
     private List<DieCoord> memory;
 
@@ -21,10 +22,13 @@ class TurnManager {
     private DiceContainer savedRoundtracker;
     private int oldCost;
 
-    TurnManager(Match match) {
+    TurnManager(Match match, String matchUUID) {
         this.match = match;
+        this.matchUUID = matchUUID;
         this.toolcard = null;
         this.memory = new ArrayList<>();
+
+        RestfulController.matches.replace(this.matchUUID, this.match);
     }
 
     /**
@@ -40,6 +44,8 @@ class TurnManager {
             //Sets up all possible actions to the current player
             player.possibleActionsSetUp();
         }
+
+        RestfulController.matches.replace(this.matchUUID, this.match);
     }
 
     /**
@@ -64,9 +70,12 @@ class TurnManager {
                 currentPlayer.deactivateToolcard();
                 toolcard = null;
             }
+
+            RestfulController.matches.replace(this.matchUUID, this.match);
             return true;
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return false;
     }
 
@@ -83,9 +92,12 @@ class TurnManager {
         if(isPlayerEqual && currentPlayer.getState().getPlayerState() != EnumState.YOUR_TURN) {
             cancelOperation(username);
             currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
+
+            RestfulController.matches.replace(this.matchUUID, this.match);
             return true;
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return false;
     }
 
@@ -127,6 +139,8 @@ class TurnManager {
             }
         }
         currentPlayer.setState(newState);
+
+        RestfulController.matches.replace(this.matchUUID, this.match);
     }
 
     /**
@@ -141,6 +155,7 @@ class TurnManager {
             currentPlayer.deactivateToolcard();
         }
         currentPlayer.setState(newState);
+        RestfulController.matches.replace(this.matchUUID, this.match);
     }
 
     /**
@@ -161,6 +176,7 @@ class TurnManager {
             handleNormalMove(currentPlayer, move);
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return currentPlayer.getState().getPlayerState() == EnumState.YOUR_TURN;
     }
 
@@ -184,9 +200,12 @@ class TurnManager {
 
             //His state it's 'PICK' on DRAFTPOOL and he must select a FULL cell
             currentPlayer.setState(new PickState(EnumSet.of(Component.DRAFTPOOL), EnumSet.of(CellState.FULL)));
+
+            RestfulController.matches.replace(this.matchUUID, this.match);
             return true;
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return false;
     }
 
@@ -226,9 +245,12 @@ class TurnManager {
             currentPlayer.setState(newState);
             //Increase the cost of the toolcard
             toolCardActivated.setCost(2);
+
+            RestfulController.matches.replace(this.matchUUID, this.match);
             return true;
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return false;
     }
 
@@ -252,9 +274,12 @@ class TurnManager {
             currentPlayer.possibleActionsRemoveAll();
             //His state it's 'IDLE' and the player will be dequeued
             currentPlayer.setState(new PlayerState(EnumState.IDLE));
+
+            RestfulController.matches.replace(this.matchUUID, this.match);
             return true;
         }
 
+        RestfulController.matches.replace(this.matchUUID, this.match);
         return false;
     }
 

@@ -49,7 +49,7 @@ public class RoundManagerTest {
 
     @Test
     public void dequeue_and_newRoundTest() throws Exception {
-        RoundManager roundManager = new RoundManager(match);
+        RoundManager roundManager = new RoundManager(match, "test");
 
         //Sets last die of the container to null
         match.getDraftPool().setDie(4, null);
@@ -105,7 +105,7 @@ public class RoundManagerTest {
 
     @Test
     public void newQueueTest() throws Exception {
-        RoundManager roundManager = new RoundManager(match);
+        RoundManager roundManager = new RoundManager(match, "test");
 
         Queue<Player> q = roundManager.newQueue();
 

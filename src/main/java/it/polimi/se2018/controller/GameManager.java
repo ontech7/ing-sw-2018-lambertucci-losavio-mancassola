@@ -5,6 +5,8 @@ import it.polimi.se2018.network.server.Lobby;
 import it.polimi.se2018.utils.*;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is the "real" controller, indeed it implements all the main functionalities to handle a Game.
@@ -12,7 +14,10 @@ import java.util.*;
  */
 class GameManager implements Comparator<Score>{
     private Match match;
+    private String matchUUID;
     private RoundManager roundManager;
+
+    private static Logger logger = Logger.getLogger("GameManager");
 
     /**
      * Constructor
@@ -22,7 +27,13 @@ class GameManager implements Comparator<Score>{
     GameManager(Lobby lobby) {
         this.match = new Match(lobby.getPlayers(), extractToolCards(), extractPublicObjCards(), lobby);
         extractPrivateObjCard();
-        this.roundManager = new RoundManager(match);
+
+        this.matchUUID = UUID.randomUUID().toString();
+        RestfulController.matches.put(this.matchUUID, this.match);
+
+        logger.log(Level.INFO,"Match created. UUID: " + this.matchUUID);
+
+        this.roundManager = new RoundManager(this.match, this.matchUUID);
     }
 
     /**

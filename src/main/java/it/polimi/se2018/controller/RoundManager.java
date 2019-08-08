@@ -14,13 +14,16 @@ import java.util.stream.Collectors;
  */
 class RoundManager {
     private Match match;
+    private String matchUUID;
     private TurnManager turnManager;
 
-    RoundManager(Match match) {
+    RoundManager(Match match, String matchUUID) {
         this.match = match;
-        turnManager = new TurnManager(match);
+        this.matchUUID = matchUUID;
+        turnManager = new TurnManager(this.match, this.matchUUID);
         this.match.setPlayerQueue(newQueue());
         this.match.setDraftPool(newDraftpool());
+        RestfulController.matches.replace(this.matchUUID, this.match);
         turnManager.newTurn(this.match.getPlayerQueue().peek());
     }
 
@@ -38,6 +41,8 @@ class RoundManager {
 
         //Extracts new DraftPool
         match.setDraftPool(newDraftpool());
+
+        RestfulController.matches.replace(this.matchUUID, this.match);
 
         turnManager.newTurn(match.getPlayerQueue().peek());
     }
@@ -81,6 +86,7 @@ class RoundManager {
                 playerQueue.add(playerList.get(indexes[2 * playerSize - i - 1]));
             }
         }
+
         return playerQueue;
     }
 

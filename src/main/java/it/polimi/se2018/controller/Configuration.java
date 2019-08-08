@@ -44,7 +44,7 @@ public class Configuration {
             queueTimer = Integer.parseInt(prop.getProperty("queueTimer", "30000"));
             inGameTimer = Integer.parseInt(prop.getProperty("inGameTimer", "20"));
             patternPath = prop.getProperty("patternPath", "null");
-            RESTful = Boolean.parseBoolean(prop.getProperty("RESTful", "true"));
+            RESTful = Boolean.parseBoolean(prop.getProperty("RESTful", "false"));
             RESTport = Integer.parseInt(prop.getProperty("RESTport", "3000"));
         } catch (Exception e) {
             socketPort = 1111;
@@ -52,7 +52,7 @@ public class Configuration {
             queueTimer = 30000;
             inGameTimer = 20;
             patternPath = "null";
-            RESTful = true;
+            RESTful = false;
             RESTport = 3000;
         }
     }

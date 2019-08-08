@@ -57,7 +57,7 @@ public class TurnManagerTest {
 
     @Test
     public void precheckFalse() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         playerQueue.peek().possibleActionsSetUp();
         playerQueue.peek().setState(new PlayerState(EnumState.YOUR_TURN));
         playerQueue.peek().setToken(5);
@@ -67,7 +67,7 @@ public class TurnManagerTest {
 
     @Test
     public void pickDieTest() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -92,7 +92,7 @@ public class TurnManagerTest {
 
     @Test
     public void pickFirstDie() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -109,7 +109,7 @@ public class TurnManagerTest {
         PlayerMove<DieCoord> pm2 = new PlayerMove<>(currentPlayer, new BoardCoord(currentPlayer.getBoard(), 0, 1));
         assertTrue(turnManager.handleMove(pm2));
 
-        turnManager = new TurnManager(match);
+        turnManager = new TurnManager(match, "test");
         currentPlayer.possibleActionsSetUp();
 
         assertTrue(turnManager.activateNormalMove("Pino"));
@@ -123,7 +123,7 @@ public class TurnManagerTest {
 
     @Test
     public void precheckTrue_activationToolcardTest() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setToken(5);
@@ -147,7 +147,7 @@ public class TurnManagerTest {
 
     @Test
     public void passTurnTest() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -167,7 +167,7 @@ public class TurnManagerTest {
 
     @Test
     public void sufficient_insufficientTokens() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -184,7 +184,7 @@ public class TurnManagerTest {
 
     @Test
     public void prechecksFalse() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -203,7 +203,7 @@ public class TurnManagerTest {
 
     @Test
     public void cancelOperationNormalMoveTest() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setState(new PlayerState(EnumState.YOUR_TURN));
@@ -243,7 +243,7 @@ public class TurnManagerTest {
 
     @Test
     public void cancelOperationToolcardTest() throws Exception {
-        TurnManager turnManager = new TurnManager(match);
+        TurnManager turnManager = new TurnManager(match, "test");
         Player currentPlayer = playerQueue.peek();
         currentPlayer.possibleActionsSetUp();
         currentPlayer.setToken(5);

@@ -48,6 +48,12 @@ public class Restriction implements Serializable{
         COLOR, VALUE
     }
 
+    public Color getColor() { return color; }
+
+    public int getValue() { return value; }
+
+    public RestrictionType getType() { return type; }
+
     @Override
     public String toString() {
         if(type == RestrictionType.COLOR){
