@@ -62,7 +62,9 @@ N.B.: The match will have a UUID attached to it. It's possible to use it for fin
 - `/rest/api/matches/{uuid}/publicobjcards/{id}` -> Show a specified public objective card of a specified match
 - `/rest/api/matches/{uuid}/finished` -> Show if a certain match is finished
 
-It's possible to read the documentation at /rest/api, after starting the REST API service.
+It's possible to read the documentation at `/rest/api`, after starting the REST API service.
+
+In case of any error, the `/error` page is mapped.
 
 ### External libraries used
 
