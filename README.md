@@ -40,8 +40,8 @@ The parameters you can specify are:
 - `queueTimer` - Specify the queue timer (milliseconds)
 - `inGameTimer` - Specify the in-game timer (seconds)
 - `patternPath` - Specify the (relative) path to a json file where you can define custom board patterns
-- `RESTful` - Specify if the server wants to start a REST API service (default: false)
-- `RESTport` - Specify the port of the REST API service (default: 3000)
+- `RESTful` - Specify if the server wants to start a RESTful service (default: false)
+- `RESTport` - Specify the port of the RESTful service (default: 3000)
 
 N.B.: The match will have a UUID attached to it. It's possible to use it for finding the match you are looking for via REST API.
 
